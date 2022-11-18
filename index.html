@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @font-face {
+        font-family: "National-Book";
+        src: url("./fonts/National-Regular.otf") format("opentype");
+      }
+      .master-container {
+        display: flex;
+        flex-direction: column;
+        font-family: National-Book, Helvetica, sans-serif;
+        background-color: #f4fcf8;
+        padding-top: 20px;
+        width: 100%;
+      }
+      .bot-space {
+        display: flex;
+        margin: auto;
+      }
+      .header-1 {
+        height: 70px;
+        font-size: 30px;
+        font-weight: 600;
+      }
+
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        border: none !important;
+        margin-right: 40px;
+        margin-top: 0;
+        /* text-align: center; */
+      }
+
+      .button {
+        background-color: #ffffff;
+        border: 1px solid #e7e7e7;
+        color: black;
+        padding: 2px 32px;
+        text-align: left;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        width: 400px;
+        height: 44px;
+        border-radius: 4px;
+        font-family: National-Book, Helvetica, sans-serif;
+      }
+
+      #bot-iframe {
+        height: 500px;
+        width: 421px;
+        border: none !important;
+        font-family: National-Book, Helvetica, sans-serif;
+      }
+
+      .shadow-box {
+        box-shadow: none !important;
+      }
+
+      .chat-container {
+        width: 100% !important;
+      }
+
+      .button-1 {
+        background-color: #ffffff;
+        border: 1px solid #e7e7e7;
+        color: black;
+        padding: 14px 32px;
+        text-align: left;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        /* width: 368px; */
+        /* height: 43px; */
+        border-radius: 4px;
+        /* outline: none; */
+        text-decoration: none;
+      }
+
+      a.button {
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
+
+        text-decoration: none;
+        color: initial;
+        width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="master-container">
+      <div class="bot-space">
+        <div class="button-group">
+          <button
+            class="button"
+            id="banking"
+            tabindex="1"
+            role="tab"
+            onclick="loadBot1()"
+          >
+            Banking
+          </button>
+          <button
+            class="button"
+            id="travel"
+            tabindex="2"
+            role="tab"
+            onclick="loadBot2()"
+          >
+            Travel and Hospitality
+          </button>
+          <button
+            class="button"
+            id="ecomm"
+            tabindex="3"
+            role="tab"
+            onclick="loadBot3()"
+          >
+            Retail & E-commerce
+          </button>
+          <a
+            href="http://freshdesk.com/signup"
+            tabindex="4"
+            role="tab"
+            class="button-1"
+            >Build your own custom bot</a
+          >
+        </div>
+        <div class="bot-container">
+          <iframe id="bot-iframe"></iframe>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      function loadBot1() {
+        (function (d, w, c) {
+          if (
+            document.getElementById("bot-iframe") &&
+            document.getElementById("bot-iframe").contentWindow.Freshbots
+          ) {
+            document
+              .getElementById("bot-iframe")
+              .contentWindow.Freshbots.resetCustomer();
+          }
+
+          // Change button color
+          document.getElementById("travel").style.backgroundColor = "#ffffff";
+          document.getElementById("travel").style.borderColor = "#E7E7E7";
+          document.getElementById("ecomm").style.backgroundColor = "#ffffff";
+          document.getElementById("ecomm").style.borderColor = "#E7E7E7";
+          document.getElementById("banking").style.backgroundColor = "#CAF0DC";
+          document.getElementById("banking").style.borderColor = "#8BDEB2";
+          // Removing the existing iframe
+          var frame = document.getElementById("bot-iframe");
+          frame.parentNode.removeChild(frame);
+
+          //Creating an new iframe
+          var ifrm = document.createElement("iframe");
+          ifrm.setAttribute("id", "bot-iframe");
+          var botContainer = document.getElementsByClassName(
+            "bot-container"
+          )[0];
+          botContainer.appendChild(ifrm);
+
+          // Loading the bot in the iframe
+          var loaded = false;
+          var rawframe = d.getElementById("bot-iframe");
+          var framedoc = rawframe.contentDocument;
+          if (!framedoc && rawframe.contentWindow) {
+            framedoc = rawframe.contentWindow.document;
+          }
+          framedoc.body.style =
+            "@font-face {font-family: 'national';src: url('./fonts/National-Regular.otf');}";
+          framedoc.body.style.fontFamily = "national";
+          var s = d.createElement("script");
+          s.id = "spd-busns-spt";
+          s.async = "async";
+          s.src = "https://cdn.freshbots.ai/assets/share/js/freshbots.min.js";
+
+          s.setAttribute(
+            "data-client",
+            "712335a4ce53253fdadab93301d8334ad7710353"
+          );
+          s.setAttribute("data-init-type", "opt");
+          s.setAttribute("data-self-init", "false");
+          s.setAttribute(
+            "data-bot-hash",
+            "bf4ca3c59e0e76893ed82815ffb1dd5dbc1e218a"
+          );
+          s.setAttribute("data-bot-version", "1");
+          s.setAttribute("data-flow-hash", "");
+          s.setAttribute("data-region", "us");
+          s.setAttribute("data-env", "prod");
+
+          if (c) {
+            s.onreadystatechange = s.onload = function () {
+              if (!loaded) {
+                c();
+              }
+              loaded = true;
+            };
+          }
+
+          framedoc.body.appendChild(s);
+        })(document, window, function () {
+          setTimeout(function () {
+            document
+              .getElementById("bot-iframe")
+              .contentWindow.Freshbots.initiateWidget(
+                {
+                  autoInitChat: false
+                },
+                function (successResponse) {
+                  document
+                    .getElementById("bot-iframe")
+                    .contentWindow.Freshbots.showWidget(true);
+                },
+                function (errorResponse) {
+                  console.log("Alas!!");
+                }
+              );
+          }, 0);
+        });
+      }
+
+      function loadBot2() {
+        (function (d, w, c) {
+          // Removing the existing iframe
+
+          if (
+            document.getElementById("bot-iframe") &&
+            document.getElementById("bot-iframe").contentWindow.Freshbots
+          ) {
+            document
+              .getElementById("bot-iframe")
+              .contentWindow.Freshbots.resetCustomer();
+          }
+
+          // Change button color
+          document.getElementById("travel").style.backgroundColor = "#CAF0DC";
+          document.getElementById("travel").style.borderColor = "#8BDEB2";
+          document.getElementById("ecomm").style.backgroundColor = "#ffffff";
+          document.getElementById("ecomm").style.borderColor = "#E7E7E7";
+          document.getElementById("banking").style.backgroundColor = "#ffffff";
+          document.getElementById("banking").style.borderColor = "#E7E7E7";
+
+          var frame = document.getElementById("bot-iframe");
+          frame.parentNode.removeChild(frame);
+
+          //Creating an new iframe
+          var ifrm = document.createElement("iframe");
+          ifrm.setAttribute("id", "bot-iframe");
+          var botContainer = document.getElementsByClassName(
+            "bot-container"
+          )[0];
+          botContainer.appendChild(ifrm);
+
+          // Loading the bot in the iframe
+          var loaded = false;
+          var rawframe = d.getElementById("bot-iframe");
+          var framedoc = rawframe.contentDocument;
+          if (!framedoc && rawframe.contentWindow) {
+            framedoc = rawframe.contentWindow.document;
+          }
+          var s = d.createElement("script");
+          s.id = "spd-busns-spt";
+          s.async = "async";
+          s.src = "https://cdn.freshbots.ai/assets/share/js/freshbots.min.js";
+
+          s.setAttribute(
+            "data-client",
+            "712335a4ce53253fdadab93301d8334ad7710353"
+          );
+          s.setAttribute("data-init-type", "opt");
+          s.setAttribute("data-self-init", "false");
+          s.setAttribute(
+            "data-bot-hash",
+            "4c1aeeba9dd595068d1ddf6a84ce538fb8776fec"
+          );
+          s.setAttribute("data-bot-version", "1");
+          s.setAttribute("data-flow-hash", "");
+          s.setAttribute("data-region", "us");
+          s.setAttribute("data-env", "prod");
+
+          if (c) {
+            s.onreadystatechange = s.onload = function () {
+              if (!loaded) {
+                c();
+              }
+              loaded = true;
+            };
+          }
+
+          framedoc.body.appendChild(s);
+        })(document, window, function () {
+          setTimeout(function () {
+            document
+              .getElementById("bot-iframe")
+              .contentWindow.Freshbots.initiateWidget(
+                {
+                  autoInitChat: false
+                },
+                function (successResponse) {
+                  document
+                    .getElementById("bot-iframe")
+                    .contentWindow.Freshbots.showWidget(true);
+                },
+                function (errorResponse) {
+                  console.log("Alas!!");
+                }
+              );
+          }, 0);
+        });
+      }
+
+      function loadBot3() {
+        (function (d, w, c) {
+          // Removing the existing iframe
+
+          if (
+            document.getElementById("bot-iframe") &&
+            document.getElementById("bot-iframe").contentWindow.Freshbots
+          ) {
+            document
+              .getElementById("bot-iframe")
+              .contentWindow.Freshbots.resetCustomer();
+          }
+
+          // Change button color
+          document.getElementById("travel").style.backgroundColor = "#ffffff";
+          document.getElementById("travel").style.borderColor = "#E7E7E7";
+          document.getElementById("ecomm").style.backgroundColor = "#CAF0DC";
+          document.getElementById("ecomm").style.borderColor = "#8BDEB2";
+          document.getElementById("banking").style.backgroundColor = "#ffffff";
+          document.getElementById("banking").style.borderColor = "#E7E7E7";
+
+          var frame = document.getElementById("bot-iframe");
+          frame.parentNode.removeChild(frame);
+
+          //Creating an new iframe
+          var ifrm = document.createElement("iframe");
+          ifrm.setAttribute("id", "bot-iframe");
+          var botContainer = document.getElementsByClassName(
+            "bot-container"
+          )[0];
+          botContainer.appendChild(ifrm);
+
+          // Loading the bot in the iframe
+          var loaded = false;
+          var rawframe = d.getElementById("bot-iframe");
+          var framedoc = rawframe.contentDocument;
+          if (!framedoc && rawframe.contentWindow) {
+            framedoc = rawframe.contentWindow.document;
+          }
+          var s = d.createElement("script");
+          s.id = "spd-busns-spt";
+          s.async = "async";
+          s.src = "https://cdn.freshbots.ai/assets/share/js/freshbots.min.js";
+
+          s.setAttribute(
+            "data-client",
+            "712335a4ce53253fdadab93301d8334ad7710353"
+          );
+          s.setAttribute("data-init-type", "opt");
+          s.setAttribute("data-self-init", "false");
+          s.setAttribute(
+            "data-bot-hash",
+            "d054abcf5b7472a4fc2c397abc58ac88a07acdf6"
+          );
+          s.setAttribute("data-bot-version", "1");
+          s.setAttribute("data-flow-hash", "");
+          s.setAttribute("data-region", "us");
+          s.setAttribute("data-env", "prod");
+
+          if (c) {
+            s.onreadystatechange = s.onload = function () {
+              if (!loaded) {
+                c();
+              }
+              loaded = true;
+            };
+          }
+
+          framedoc.body.appendChild(s);
+        })(document, window, function () {
+          setTimeout(function () {
+            document
+              .getElementById("bot-iframe")
+              .contentWindow.Freshbots.initiateWidget(
+                {
+                  autoInitChat: false
+                },
+                function (successResponse) {
+                  document
+                    .getElementById("bot-iframe")
+                    .contentWindow.Freshbots.showWidget(true);
+                },
+                function (errorResponse) {
+                  console.log("Alas!!");
+                }
+              );
+          }, 0);
+        });
+      }
+    </script>
+    <script>
+      window.onload = loadBot1;
+    </script>
+  </body>
+</html>
