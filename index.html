@@ -11,91 +11,99 @@
       .master-container {
         display: flex;
         flex-direction: column;
-        font-family: National-Book, Helvetica, sans-serif;
-        background-color: #f4fcf8;
-        padding-top: 20px;
         width: 100%;
+        font-family: National-Book, Helvetica, sans-serif;
+        background-color: rgba(69, 164, 236, 0.1);
+        padding-top: 20px;
+        box-sizing: border-box;
+        align-items: center;
       }
       .bot-space {
         display: flex;
-        margin: auto;
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
       }
-      .header-1 {
-        height: 70px;
-        font-size: 30px;
-        font-weight: 600;
-      }
-
       .button-group {
         display: flex;
+        flex: 1 0 26%;
         flex-direction: column;
-        border: none !important;
-        margin-right: 40px;
-        margin-top: 0;
+        width: 50%;
+        padding: 0 20px;
+        box-sizing: border-box;
       }
-
+      .bot-container {
+        display: flex;
+        flex: 1 0 auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+        justify-content: right;
+      }
+      .button-wrap {
+        max-width: 400px;
+      }
       .button {
-        background-color: #ffffff;
-        border: 1px solid #e7e7e7;
-        color: black;
-        padding: 2px 32px;
-        text-align: left;
-        display: inline-block;
-        font-size: 14px;
-        margin: 4px 2px;
-        cursor: pointer;
-        width: 400px;
+        width: 100%;
         height: 44px;
-        border-radius: 4px;
+        margin-bottom: 8px;
+        padding: 2px 32px;
+        cursor: pointer;
         font-family: National-Book, Helvetica, sans-serif;
+        font-size: 14px;
+        text-align: left;
+        background-color: #ffffff;
+        color: black;
+        border: 1px solid #e7e7e7;
+        border-radius: 4px;
       }
-
       .button[aria-selected="true"] {
-        background-color: #caf0dc;
-        border: 1px solid #8bdeb2;
+        background-color: rgba(69, 164, 236, 0.1);
+        border: 1px solid rgb(69, 164, 236);
       }
 
       #bot-iframe {
         height: 500px;
-        width: 421px;
+        width: 100%;
+        max-width: 400px;
         border: none !important;
         font-family: National-Book, Helvetica, sans-serif;
       }
-
       .shadow-box {
         box-shadow: none !important;
       }
 
-      .chat-container {
-        width: 100% !important;
-      }
-
-      .button-1 {
-        background-color: #ffffff;
-        border: 1px solid #e7e7e7;
-        color: black;
-        padding: 14px 32px;
-        text-align: left;
-        display: inline-block;
-        font-size: 14px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 4px;
-        text-decoration: none;
-      }
-
-      a.button {
-        -webkit-appearance: button;
-        -moz-appearance: button;
-        appearance: button;
-
-        text-decoration: none;
-        color: initial;
-        width: 400px;
-      }
-      @media only screen and (max-width: 600px) {
+      @media only screen and (max-width: 767px) {
+        .master-container {
+          padding-top: 8px;
+        }
+        .bot-space {
+          padding: 0 8px;
+          flex-direction: column;
+        }
+        .bot-container {
+          padding: 0 5px;
+        }
+        #bot-iframe {
+          height: 438px;
+          margin: 0 auto;
+        }
         .button-group {
+          width: 100%;
+          flex: 1 0 100%;
           flex-direction: row;
+          flex-wrap: wrap;
+          padding: 0;
+          justify-content: space-evenly;
+        }
+        .button-wrap {
+          width: 30%;
+          flex: 1 0 30%;
+          margin: 0 1.5%;
+        }
+        .button {
+          padding: 0 8px;
+          text-align: center;
+          font-size: 0.8em;
         }
       }
     </style>
@@ -104,41 +112,57 @@
     <div class="master-container">
       <div class="bot-space">
         <div class="button-group">
-          <button
-            class="button selected"
-            id="banking"
-            tabindex="1"
-            role="tab"
-            aria-selected="true"
-            onclick="loadBot(this)"
-          >
-            Banking
-          </button>
-          <button
-            class="button"
-            id="travel"
-            tabindex="2"
-            role="tab"
-            onclick="loadBot(this)"
-          >
-            Travel and Hospitality
-          </button>
-          <button
-            class="button"
-            id="ecomm"
-            tabindex="3"
-            role="tab"
-            onclick="loadBot(this)"
-          >
-            Retail & E-commerce
-          </button>
-          <a
-            href="http://freshdesk.com/signup"
-            tabindex="4"
-            role="tab"
-            class="button-1"
-            >Build your own custom bot</a
-          >
+          <div class="button-wrap">
+            <button
+              class="button selected"
+              id="banking"
+              tabindex="0"
+              role="tab"
+              aria-selected="true"
+              onclick="loadBot(this)">
+              Banking
+            </button>
+          </div>
+          <div class="button-wrap">
+            <button
+              class="button"
+              id="travel"
+              tabindex="0"
+              role="tab"
+              onclick="loadBot(this)">
+              Travel and Hospitality
+            </button>
+          </div>
+          <div class="button-wrap">
+            <button
+              class="button"
+              id="ecomm"
+              tabindex="0"
+              role="tab"
+              onclick="loadBot(this)">
+              Retail & E-commerce
+            </button>
+          </div>
+          <div class="button-wrap">
+            <button
+              class="button"
+              id="ecomm"
+              tabindex="0"
+              role="tab"
+              onclick="loadBot(this)">
+              Retail & E-commerce
+            </button>
+          </div>
+          <div class="button-wrap">
+            <button
+              class="button"
+              id="ecomm"
+              tabindex="0"
+              role="tab"
+              onclick="loadBot(this)">
+              Retail & E-commerce
+            </button>
+          </div>
         </div>
         <div class="bot-container">
           <iframe id="bot-iframe"></iframe>
