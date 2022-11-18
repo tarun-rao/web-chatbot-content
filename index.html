@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       @font-face {
         font-family: "National-Book";
@@ -30,7 +32,6 @@
         border: none !important;
         margin-right: 40px;
         margin-top: 0;
-        /* text-align: center; */
       }
 
       .button {
@@ -47,6 +48,11 @@
         height: 44px;
         border-radius: 4px;
         font-family: National-Book, Helvetica, sans-serif;
+      }
+
+      .button[aria-selected="true"] {
+        background-color: #caf0dc;
+        border: 1px solid #8bdeb2;
       }
 
       #bot-iframe {
@@ -74,10 +80,7 @@
         font-size: 14px;
         margin: 4px 2px;
         cursor: pointer;
-        /* width: 368px; */
-        /* height: 43px; */
         border-radius: 4px;
-        /* outline: none; */
         text-decoration: none;
       }
 
@@ -90,6 +93,11 @@
         color: initial;
         width: 400px;
       }
+      @media only screen and (max-width: 600px) {
+        .button-group {
+          flex-direction: row;
+        }
+      }
     </style>
   </head>
   <body>
@@ -97,11 +105,12 @@
       <div class="bot-space">
         <div class="button-group">
           <button
-            class="button"
+            class="button selected"
             id="banking"
             tabindex="1"
             role="tab"
-            onclick="loadBot1()"
+            aria-selected="true"
+            onclick="loadBot(this)"
           >
             Banking
           </button>
@@ -110,7 +119,7 @@
             id="travel"
             tabindex="2"
             role="tab"
-            onclick="loadBot2()"
+            onclick="loadBot(this)"
           >
             Travel and Hospitality
           </button>
@@ -119,7 +128,7 @@
             id="ecomm"
             tabindex="3"
             role="tab"
-            onclick="loadBot3()"
+            onclick="loadBot(this)"
           >
             Retail & E-commerce
           </button>
@@ -138,34 +147,60 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-      function loadBot1() {
-        (function (d, w, c) {
-          if (
-            document.getElementById("bot-iframe") &&
-            document.getElementById("bot-iframe").contentWindow.Freshbots
-          ) {
-            document
-              .getElementById("bot-iframe")
-              .contentWindow.Freshbots.resetCustomer();
+      var botConfig = {
+        banking: {
+          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
+          'data-bot-hash': 'bf4ca3c59e0e76893ed82815ffb1dd5dbc1e218a',
+          'data-init-type': 'opt',
+          'data-self-init': 'false',
+          'data-bot-version': '1',
+          'data-flow-hash': '',
+          'data-region': 'us',
+          'data-env': 'prod'
+        },
+        travel: {
+          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
+          'data-bot-hash': '4c1aeeba9dd595068d1ddf6a84ce538fb8776fec',
+          'data-init-type': 'opt',
+          'data-self-init': 'false',
+          'data-bot-version': '1',
+          'data-flow-hash': '',
+          'data-region': 'us',
+          'data-env': 'prod'
+        },
+        ecomm: {
+          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
+          'data-bot-hash': 'd054abcf5b7472a4fc2c397abc58ac88a07acdf6',
+          'data-init-type': 'opt',
+          'data-self-init': 'false',
+          'data-bot-version': '1',
+          'data-flow-hash': '',
+          'data-region': 'us',
+          'data-env': 'prod'
+        }
+      };
+      function loadBot(element) {
+        (function (d, w, el, c) {
+          var e = e || document.querySelector('.button[aria-selected="true"]');
+          var frame = document.getElementById("bot-iframe");
+
+          if (frame && frame.contentWindow.Freshbots) {
+            frame.contentWindow.Freshbots.resetCustomer();
           }
 
           // Change button color
-          document.getElementById("travel").style.backgroundColor = "#ffffff";
-          document.getElementById("travel").style.borderColor = "#E7E7E7";
-          document.getElementById("ecomm").style.backgroundColor = "#ffffff";
-          document.getElementById("ecomm").style.borderColor = "#E7E7E7";
-          document.getElementById("banking").style.backgroundColor = "#CAF0DC";
-          document.getElementById("banking").style.borderColor = "#8BDEB2";
+          document.querySelectorAll('.bot-space .button').forEach(function(button) {
+            button.ariaSelected = 'false';
+          });
+          e.ariaSelected = 'true';
+
           // Removing the existing iframe
-          var frame = document.getElementById("bot-iframe");
           frame.parentNode.removeChild(frame);
 
           //Creating an new iframe
           var ifrm = document.createElement("iframe");
           ifrm.setAttribute("id", "bot-iframe");
-          var botContainer = document.getElementsByClassName(
-            "bot-container"
-          )[0];
+          var botContainer = document.getElementsByClassName("bot-container")[0];
           botContainer.appendChild(ifrm);
 
           // Loading the bot in the iframe
@@ -175,28 +210,16 @@
           if (!framedoc && rawframe.contentWindow) {
             framedoc = rawframe.contentWindow.document;
           }
-          framedoc.body.style =
-            "@font-face {font-family: 'national';src: url('./fonts/National-Regular.otf');}";
+          framedoc.body.style = "@font-face {font-family: 'national';src: url('./fonts/National-Regular.otf');}";
           framedoc.body.style.fontFamily = "national";
           var s = d.createElement("script");
           s.id = "spd-busns-spt";
           s.async = "async";
           s.src = "https://cdn.freshbots.ai/assets/share/js/freshbots.min.js";
 
-          s.setAttribute(
-            "data-client",
-            "712335a4ce53253fdadab93301d8334ad7710353"
-          );
-          s.setAttribute("data-init-type", "opt");
-          s.setAttribute("data-self-init", "false");
-          s.setAttribute(
-            "data-bot-hash",
-            "bf4ca3c59e0e76893ed82815ffb1dd5dbc1e218a"
-          );
-          s.setAttribute("data-bot-version", "1");
-          s.setAttribute("data-flow-hash", "");
-          s.setAttribute("data-region", "us");
-          s.setAttribute("data-env", "prod");
+          for(const key in botConfig[e.id]) {
+            s.setAttribute(key, botConfig[e.id][key]);
+          }
 
           if (c) {
             s.onreadystatechange = s.onload = function () {
@@ -208,198 +231,17 @@
           }
 
           framedoc.body.appendChild(s);
-        })(document, window, function () {
+        })(document, window, element, function () {
           setTimeout(function () {
             document
               .getElementById("bot-iframe")
-              .contentWindow.Freshbots.initiateWidget(
-                {
+              .contentWindow
+              .Freshbots
+              .initiateWidget({
                   autoInitChat: false
                 },
                 function (successResponse) {
-                  document
-                    .getElementById("bot-iframe")
-                    .contentWindow.Freshbots.showWidget(true);
-                },
-                function (errorResponse) {
-                  console.log("Alas!!");
-                }
-              );
-          }, 0);
-        });
-      }
-
-      function loadBot2() {
-        (function (d, w, c) {
-          // Removing the existing iframe
-
-          if (
-            document.getElementById("bot-iframe") &&
-            document.getElementById("bot-iframe").contentWindow.Freshbots
-          ) {
-            document
-              .getElementById("bot-iframe")
-              .contentWindow.Freshbots.resetCustomer();
-          }
-
-          // Change button color
-          document.getElementById("travel").style.backgroundColor = "#CAF0DC";
-          document.getElementById("travel").style.borderColor = "#8BDEB2";
-          document.getElementById("ecomm").style.backgroundColor = "#ffffff";
-          document.getElementById("ecomm").style.borderColor = "#E7E7E7";
-          document.getElementById("banking").style.backgroundColor = "#ffffff";
-          document.getElementById("banking").style.borderColor = "#E7E7E7";
-
-          var frame = document.getElementById("bot-iframe");
-          frame.parentNode.removeChild(frame);
-
-          //Creating an new iframe
-          var ifrm = document.createElement("iframe");
-          ifrm.setAttribute("id", "bot-iframe");
-          var botContainer = document.getElementsByClassName(
-            "bot-container"
-          )[0];
-          botContainer.appendChild(ifrm);
-
-          // Loading the bot in the iframe
-          var loaded = false;
-          var rawframe = d.getElementById("bot-iframe");
-          var framedoc = rawframe.contentDocument;
-          if (!framedoc && rawframe.contentWindow) {
-            framedoc = rawframe.contentWindow.document;
-          }
-          var s = d.createElement("script");
-          s.id = "spd-busns-spt";
-          s.async = "async";
-          s.src = "https://cdn.freshbots.ai/assets/share/js/freshbots.min.js";
-
-          s.setAttribute(
-            "data-client",
-            "712335a4ce53253fdadab93301d8334ad7710353"
-          );
-          s.setAttribute("data-init-type", "opt");
-          s.setAttribute("data-self-init", "false");
-          s.setAttribute(
-            "data-bot-hash",
-            "4c1aeeba9dd595068d1ddf6a84ce538fb8776fec"
-          );
-          s.setAttribute("data-bot-version", "1");
-          s.setAttribute("data-flow-hash", "");
-          s.setAttribute("data-region", "us");
-          s.setAttribute("data-env", "prod");
-
-          if (c) {
-            s.onreadystatechange = s.onload = function () {
-              if (!loaded) {
-                c();
-              }
-              loaded = true;
-            };
-          }
-
-          framedoc.body.appendChild(s);
-        })(document, window, function () {
-          setTimeout(function () {
-            document
-              .getElementById("bot-iframe")
-              .contentWindow.Freshbots.initiateWidget(
-                {
-                  autoInitChat: false
-                },
-                function (successResponse) {
-                  document
-                    .getElementById("bot-iframe")
-                    .contentWindow.Freshbots.showWidget(true);
-                },
-                function (errorResponse) {
-                  console.log("Alas!!");
-                }
-              );
-          }, 0);
-        });
-      }
-
-      function loadBot3() {
-        (function (d, w, c) {
-          // Removing the existing iframe
-
-          if (
-            document.getElementById("bot-iframe") &&
-            document.getElementById("bot-iframe").contentWindow.Freshbots
-          ) {
-            document
-              .getElementById("bot-iframe")
-              .contentWindow.Freshbots.resetCustomer();
-          }
-
-          // Change button color
-          document.getElementById("travel").style.backgroundColor = "#ffffff";
-          document.getElementById("travel").style.borderColor = "#E7E7E7";
-          document.getElementById("ecomm").style.backgroundColor = "#CAF0DC";
-          document.getElementById("ecomm").style.borderColor = "#8BDEB2";
-          document.getElementById("banking").style.backgroundColor = "#ffffff";
-          document.getElementById("banking").style.borderColor = "#E7E7E7";
-
-          var frame = document.getElementById("bot-iframe");
-          frame.parentNode.removeChild(frame);
-
-          //Creating an new iframe
-          var ifrm = document.createElement("iframe");
-          ifrm.setAttribute("id", "bot-iframe");
-          var botContainer = document.getElementsByClassName(
-            "bot-container"
-          )[0];
-          botContainer.appendChild(ifrm);
-
-          // Loading the bot in the iframe
-          var loaded = false;
-          var rawframe = d.getElementById("bot-iframe");
-          var framedoc = rawframe.contentDocument;
-          if (!framedoc && rawframe.contentWindow) {
-            framedoc = rawframe.contentWindow.document;
-          }
-          var s = d.createElement("script");
-          s.id = "spd-busns-spt";
-          s.async = "async";
-          s.src = "https://cdn.freshbots.ai/assets/share/js/freshbots.min.js";
-
-          s.setAttribute(
-            "data-client",
-            "712335a4ce53253fdadab93301d8334ad7710353"
-          );
-          s.setAttribute("data-init-type", "opt");
-          s.setAttribute("data-self-init", "false");
-          s.setAttribute(
-            "data-bot-hash",
-            "d054abcf5b7472a4fc2c397abc58ac88a07acdf6"
-          );
-          s.setAttribute("data-bot-version", "1");
-          s.setAttribute("data-flow-hash", "");
-          s.setAttribute("data-region", "us");
-          s.setAttribute("data-env", "prod");
-
-          if (c) {
-            s.onreadystatechange = s.onload = function () {
-              if (!loaded) {
-                c();
-              }
-              loaded = true;
-            };
-          }
-
-          framedoc.body.appendChild(s);
-        })(document, window, function () {
-          setTimeout(function () {
-            document
-              .getElementById("bot-iframe")
-              .contentWindow.Freshbots.initiateWidget(
-                {
-                  autoInitChat: false
-                },
-                function (successResponse) {
-                  document
-                    .getElementById("bot-iframe")
-                    .contentWindow.Freshbots.showWidget(true);
+                  document.getElementById("bot-iframe").contentWindow.Freshbots.showWidget(true);
                 },
                 function (errorResponse) {
                   console.log("Alas!!");
@@ -410,7 +252,7 @@
       }
     </script>
     <script>
-      window.onload = loadBot1;
+      window.onload = loadBot();
     </script>
   </body>
 </html>
