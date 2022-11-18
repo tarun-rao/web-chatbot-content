@@ -21,6 +21,7 @@
       .bot-space {
         display: flex;
         width: 100%;
+        max-width: 1000px;
         padding: 0 20px;
         box-sizing: border-box;
       }
@@ -64,9 +65,14 @@
       #bot-iframe {
         height: 500px;
         width: 100%;
-        max-width: 400px;
-        border: none !important;
+        max-width: 390px;
+        border: none;
         font-family: National-Book, Helvetica, sans-serif;
+      }
+      #bot-iframe.border {
+        border: 1px solid #dedede;
+        border-bottom: none;
+        border-radius: 13px 13px 0 0;
       }
       .shadow-box {
         box-shadow: none !important;
@@ -117,7 +123,6 @@
               class="button selected"
               id="banking"
               tabindex="0"
-              role="tab"
               aria-selected="true"
               onclick="loadBot(this)">
               Banking
@@ -128,7 +133,6 @@
               class="button"
               id="travel"
               tabindex="0"
-              role="tab"
               onclick="loadBot(this)">
               Travel and Hospitality
             </button>
@@ -138,7 +142,6 @@
               class="button"
               id="ecomm"
               tabindex="0"
-              role="tab"
               onclick="loadBot(this)">
               Retail & E-commerce
             </button>
@@ -148,7 +151,6 @@
               class="button"
               id="ecomm"
               tabindex="0"
-              role="tab"
               onclick="loadBot(this)">
               Retail & E-commerce
             </button>
@@ -158,7 +160,6 @@
               class="button"
               id="ecomm"
               tabindex="0"
-              role="tab"
               onclick="loadBot(this)">
               Retail & E-commerce
             </button>
@@ -220,6 +221,7 @@
 
           // Removing the existing iframe
           frame.parentNode.removeChild(frame);
+          frame.classList.remove('border');
 
           //Creating an new iframe
           var ifrm = document.createElement("iframe");
@@ -266,6 +268,7 @@
                 },
                 function (successResponse) {
                   document.getElementById("bot-iframe").contentWindow.Freshbots.showWidget(true);
+                  document.getElementById("bot-iframe").classList.add('border');
                 },
                 function (errorResponse) {
                   console.log("Alas!!");
