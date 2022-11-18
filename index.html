@@ -205,7 +205,7 @@
       };
       function loadBot(element) {
         (function (d, w, el, c) {
-          var e = e || document.querySelector('.button[aria-selected="true"]');
+          var e = el || document.querySelector('.button[aria-selected="true"]');
           var frame = document.getElementById("bot-iframe");
 
           if (frame && frame.contentWindow.Freshbots) {
