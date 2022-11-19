@@ -79,6 +79,7 @@
         right: 40px!important;
         left: auto!important;
         bottom: 32px!important;
+        border-radius: 8px 8px 0 0;
       }
       #fc_widget {
         right: 0!important;
@@ -142,47 +143,56 @@
           <div class="button-wrap">
             <button
               class="button selected"
-              id="banking"
+              id="ecom"
               tabindex="0"
               aria-selected="true"
               onclick="loadBot(this)">
-              Banking
+              E-commerce
             </button>
           </div>
           <div class="button-wrap">
             <button
               class="button"
-              id="travel"
+              id="mf"
               tabindex="0"
               onclick="loadBot(this)">
-              Travel and Hospitality
+              Mutual Funds
             </button>
           </div>
           <div class="button-wrap">
             <button
               class="button"
-              id="ecomm"
+              id="lending"
               tabindex="0"
               onclick="loadBot(this)">
-              Retail & E-commerce
+              Lending
             </button>
           </div>
           <div class="button-wrap">
             <button
               class="button"
-              id="ecomm"
+              id="airlines"
               tabindex="0"
               onclick="loadBot(this)">
-              Retail & E-commerce
+              Airlines
             </button>
           </div>
           <div class="button-wrap">
             <button
               class="button"
-              id="ecomm"
+              id="edtech"
               tabindex="0"
               onclick="loadBot(this)">
-              Retail & E-commerce
+              Edtech
+            </button>
+          </div>
+          <div class="button-wrap">
+            <button
+              class="button"
+              id="healthcare"
+              tabindex="0"
+              onclick="loadBot(this)">
+              Healthcare
             </button>
           </div>
         </div>
@@ -196,11 +206,6 @@
       function loadBot(element) {
         (function (d, w, el, c) {
           var e = el || document.querySelector('.button[aria-selected="true"]');
-          var frame = document.getElementById("fc_frame");
-
-          if (frame && frame.contentWindow.Freshbots) {
-            frame.contentWindow.Freshbots.resetCustomer();
-          }
 
           // Change button color
           document.querySelectorAll('.bot-space .button').forEach(function(button) {
@@ -208,41 +213,26 @@
           });
           e.ariaSelected = 'true';
 
-          // Removing the existing iframe
-          frame.parentNode.removeChild(frame);
+          // Reset Widget          
+          window.fcWidget.close();
+          setTimeout(function() {
+            window.fcWidget.setTags(e.id ? [e.id] : [])
+            window.fcWidget.open();
+          }, 300)
 
-          //Creating an new iframe
-          var ifrm = document.createElement("iframe");
-          ifrm.setAttribute("id", "fc_frame");
-          var botContainer = document.getElementsByClassName("bot-container")[0];
-          botContainer.appendChild(ifrm);
-
-          // Loading the bot in the iframe
-          var loaded = false;
-          var rawframe = d.getElementById("bot-iframe");
-          var framedoc = rawframe.contentDocument;
-          if (!framedoc && rawframe.contentWindow) {
-            framedoc = rawframe.contentWindow.document;
-          }
-          framedoc.body.style = "@font-face {font-family: 'national';src: url('./fonts/National-Regular.otf');}";
-          framedoc.body.style.fontFamily = "national";
-          
-          if (c) {
-              if (!loaded) {
-                c();
-              }
-              loaded = true;
-          }
-        })(document, window, element, function () {
-          setTimeout(function () {
-            // document.getElementById("bot-iframe").contentWindow.Freshbots.showWidget(true);
-          }, 0);
-        });
+        })(document, window, element);
       }
-    </script>
-    
-    <script>
-      window.fcWidgetMessengerConfig = {open: true,tags: ["ecom"],config: {headerProperty: {hideChatButton: false},fullscreen: true}};
+
+      window.fcWidgetMessengerConfig = {
+        open: true,
+        tags: ["ecom"],
+        config: {
+          headerProperty: {
+            hideChatButton: false
+          },
+          fullscreen: true
+        }
+      };
     </script>
     <script src='//in.fw-cdn.com/30573464/315988.js' chat='true'></script>
   </body>
