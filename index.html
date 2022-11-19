@@ -40,7 +40,7 @@
       }
       .bot-container {
         display: flex;
-        flex: 1 0 auto;
+        flex: 1 0 390px;
         padding: 0 20px;
         box-sizing: border-box;
         justify-content: right;
@@ -66,25 +66,28 @@
         background-color: rgba(69, 164, 236, 0.1);
         border: 1px solid rgb(69, 164, 236);
       }
-
       #bot-iframe,#fc_frame {
         height: 500px;
-        width: 100%;
+        width: 390px;
         max-width: 390px;
       }
-      #fc_frame.fc-widget-fullscreen.fc-widget-normal, #fc_frame.fc-widget-fullscreen.fc-widget-normal.fc-open {
+      body > #fc_frame.fc-widget-fullscreen.fc-widget-normal, #fc_frame.fc-widget-fullscreen.fc-widget-normal.fc-open {
         height: 500px !important;
         width: 100%!important;
         max-width: 390px!important;
         position: absolute!important;
-        right: 20px!important;
+        right: 40px!important;
         left: auto!important;
         bottom: 32px!important;
       }
-      .shadow-box {
-        box-shadow: none !important;
+      #fc_widget {
+        right: 0!important;
+        left: auto!important;
+        bottom: 0!important;
       }
-
+      .fc-mobile-close.minimize {
+        display: none!important;
+      }
       @media only screen and (max-width: 767px) {
         .master-container {
           padding-top: 8px;
@@ -100,12 +103,10 @@
           height: 438px;
           margin: 0 auto;
         }
-        #fc_frame.fc-widget-fullscreen.fc-widget-normal, #fc_frame.fc-widget-fullscreen.fc-widget-normal.fc-open {
+        body > #fc_frame.fc-widget-fullscreen.fc-widget-normal, #fc_frame.fc-widget-fullscreen.fc-widget-normal.fc-open {
           height: 434px!important;
-          right: 50%!important;
-          left: auto!important;
+          left: 5.5%!important;
           bottom: 0!important;
-          transform: translateX(50%);
         }
         .button-group {
           width: 100%;
@@ -124,6 +125,12 @@
           padding: 0 8px;
           text-align: center;
           font-size: 0.8em;
+        }
+      }
+      @media only screen and (max-width: 478px) {
+        body > #fc_frame.fc-widget-fullscreen.fc-widget-normal, #fc_frame.fc-widget-fullscreen.fc-widget-normal.fc-open {
+          width: 100%!important;
+          left: 0%!important;
         }
       }
     </style>
