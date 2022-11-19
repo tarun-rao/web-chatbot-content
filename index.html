@@ -8,6 +8,11 @@
         font-family: "National-Book";
         src: url("./fonts/National-Regular.otf") format("opentype");
       }
+      body {
+        max-width: 950px;
+        min-height: 550px;
+        position: relative;
+      }
       .master-container {
         display: flex;
         flex-direction: column;
@@ -62,17 +67,19 @@
         border: 1px solid rgb(69, 164, 236);
       }
 
-      #bot-iframe {
+      #bot-iframe,#fc_frame {
         height: 500px;
         width: 100%;
         max-width: 390px;
-        border: none;
-        font-family: National-Book, Helvetica, sans-serif;
       }
-      #bot-iframe.border {
-        border: 1px solid #dedede;
-        border-bottom: none;
-        border-radius: 13px 13px 0 0;
+      #fc_frame.fc-widget-fullscreen.fc-widget-normal, #fc_frame.fc-widget-fullscreen.fc-widget-normal.fc-open {
+        height: 500px !important;
+        width: 100%!important;
+        max-width: 390px!important;
+        position: absolute!important;
+        right: 20px!important;
+        left: auto!important;
+        bottom: 32px!important;
       }
       .shadow-box {
         box-shadow: none !important;
@@ -89,9 +96,16 @@
         .bot-container {
           padding: 0 5px;
         }
-        #bot-iframe {
+        #bot-iframe,#fc_frame {
           height: 438px;
           margin: 0 auto;
+        }
+        #fc_frame.fc-widget-fullscreen.fc-widget-normal, #fc_frame.fc-widget-fullscreen.fc-widget-normal.fc-open {
+          height: 434px!important;
+          right: 50%!important;
+          left: auto!important;
+          bottom: 0!important;
+          transform: translateX(50%);
         }
         .button-group {
           width: 100%;
@@ -166,48 +180,16 @@
           </div>
         </div>
         <div class="bot-container">
-          <iframe id="bot-iframe"></iframe>
+          <div id="bot-iframe"></div>
         </div>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-      var botConfig = {
-        banking: {
-          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
-          'data-bot-hash': 'bf4ca3c59e0e76893ed82815ffb1dd5dbc1e218a',
-          'data-init-type': 'opt',
-          'data-self-init': 'false',
-          'data-bot-version': '1',
-          'data-flow-hash': '',
-          'data-region': 'us',
-          'data-env': 'prod'
-        },
-        travel: {
-          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
-          'data-bot-hash': '4c1aeeba9dd595068d1ddf6a84ce538fb8776fec',
-          'data-init-type': 'opt',
-          'data-self-init': 'false',
-          'data-bot-version': '1',
-          'data-flow-hash': '',
-          'data-region': 'us',
-          'data-env': 'prod'
-        },
-        ecomm: {
-          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
-          'data-bot-hash': 'd054abcf5b7472a4fc2c397abc58ac88a07acdf6',
-          'data-init-type': 'opt',
-          'data-self-init': 'false',
-          'data-bot-version': '1',
-          'data-flow-hash': '',
-          'data-region': 'us',
-          'data-env': 'prod'
-        }
-      };
       function loadBot(element) {
         (function (d, w, el, c) {
           var e = el || document.querySelector('.button[aria-selected="true"]');
-          var frame = document.getElementById("bot-iframe");
+          var frame = document.getElementById("fc_frame");
 
           if (frame && frame.contentWindow.Freshbots) {
             frame.contentWindow.Freshbots.resetCustomer();
@@ -221,11 +203,10 @@
 
           // Removing the existing iframe
           frame.parentNode.removeChild(frame);
-          frame.classList.remove('border');
 
           //Creating an new iframe
           var ifrm = document.createElement("iframe");
-          ifrm.setAttribute("id", "bot-iframe");
+          ifrm.setAttribute("id", "fc_frame");
           var botContainer = document.getElementsByClassName("bot-container")[0];
           botContainer.appendChild(ifrm);
 
@@ -238,48 +219,24 @@
           }
           framedoc.body.style = "@font-face {font-family: 'national';src: url('./fonts/National-Regular.otf');}";
           framedoc.body.style.fontFamily = "national";
-          var s = d.createElement("script");
-          s.id = "spd-busns-spt";
-          s.async = "async";
-          s.src = "https://cdn.freshbots.ai/assets/share/js/freshbots.min.js";
-
-          for(const key in botConfig[e.id]) {
-            s.setAttribute(key, botConfig[e.id][key]);
-          }
-
+          
           if (c) {
-            s.onreadystatechange = s.onload = function () {
               if (!loaded) {
                 c();
               }
               loaded = true;
-            };
           }
-
-          framedoc.body.appendChild(s);
         })(document, window, element, function () {
           setTimeout(function () {
-            document
-              .getElementById("bot-iframe")
-              .contentWindow
-              .Freshbots
-              .initiateWidget({
-                  autoInitChat: false
-                },
-                function (successResponse) {
-                  document.getElementById("bot-iframe").contentWindow.Freshbots.showWidget(true);
-                  document.getElementById("bot-iframe").classList.add('border');
-                },
-                function (errorResponse) {
-                  console.log("Alas!!");
-                }
-              );
+            // document.getElementById("bot-iframe").contentWindow.Freshbots.showWidget(true);
           }, 0);
         });
       }
     </script>
+    
     <script>
-      window.onload = loadBot();
+      window.fcWidgetMessengerConfig = {open: true,tags: ["ecom"],config: {headerProperty: {hideChatButton: false},fullscreen: true}};
     </script>
+    <script src='//in.fw-cdn.com/30573464/315988.js' chat='true'></script>
   </body>
 </html>
