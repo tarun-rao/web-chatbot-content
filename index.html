@@ -215,13 +215,14 @@
             button.ariaSelected = 'false';
           });
           e.ariaSelected = 'true';
-
+          window.fcWidget.setTags(e.id ? [e.id] : [])
+          
           // Reset Widget          
-          window.fcWidget.close();
-          setTimeout(function() {
-            window.fcWidget.setTags(e.id ? [e.id] : [])
-            window.fcWidget.open();
-          }, 300)
+          // window.fcWidget.close();
+          // setTimeout(function() {
+            // window.fcWidget.setTags(e.id ? [e.id] : [])
+            // window.fcWidget.open();
+          // }, 300)
 
         })(document, window, element);
       }
@@ -231,6 +232,7 @@
         tags: ["ecom"],
         config: {
           headerProperty: {
+            hideHeader: true,
             hideChatButton: false
           },
           fullscreen: true
