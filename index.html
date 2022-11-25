@@ -149,7 +149,7 @@
           <div class="button-wrap">
             <button
               class="button selected"
-              id="ecom"
+              id="93812"
               tabindex="0"
               aria-selected="true"
               onclick="loadBot(this)">
@@ -159,7 +159,7 @@
           <div class="button-wrap">
             <button
               class="button"
-              id="mf"
+              id="93719"
               tabindex="0"
               onclick="loadBot(this)">
               Mutual Funds
@@ -168,7 +168,7 @@
           <div class="button-wrap">
             <button
               class="button"
-              id="lending"
+              id="93813"
               tabindex="0"
               onclick="loadBot(this)">
               Lending
@@ -177,7 +177,7 @@
           <div class="button-wrap">
             <button
               class="button"
-              id="airlines"
+              id="93811"
               tabindex="0"
               onclick="loadBot(this)">
               Airlines
@@ -186,7 +186,7 @@
           <div class="button-wrap">
             <button
               class="button"
-              id="edtech"
+              id="93814"
               tabindex="0"
               onclick="loadBot(this)">
               Edtech
@@ -195,7 +195,7 @@
           <div class="button-wrap">
             <button
               class="button"
-              id="healthcare"
+              id="93713"
               tabindex="0"
               onclick="loadBot(this)">
               Healthcare
@@ -218,21 +218,21 @@
             button.ariaSelected = 'false';
           });
           e.ariaSelected = 'true';
-          window.fcWidget.setTags(e.id ? [e.id] : [])
-          
-          // Reset Widget          
-          // window.fcWidget.close();
-          // setTimeout(function() {
-            // window.fcWidget.setTags(e.id ? [e.id] : [])
-            // window.fcWidget.open();
-          // }, 300)
-
+          window.fcWidget.open({id: Number(e.id)});
         })(document, window, element);
+      }
+
+      window.fcSettings = {
+        onInit: function() {
+          window.fcWidget.on("widget:loaded", function(resp) {
+            console.log('Widget Loaded');
+              window.fcWidget.open({id: 93812});
+          });
+        }
       }
 
       window.fcWidgetMessengerConfig = {
         open: true,
-        tags: ["ecom"],
         config: {
           headerProperty: {
             hideHeader: true,
