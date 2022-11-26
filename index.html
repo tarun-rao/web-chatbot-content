@@ -61,9 +61,6 @@
         background-color: rgb(202, 240, 220);
         border: 1px solid rgb(139, 222, 178);
       }
-      .button:focus-visible {
-        outline-color: rgb(37 193 111);
-      }
 
       .bot-container {
         display: flex;
@@ -82,6 +79,10 @@
       }
       #fc_frame {
         position: absolute!important;
+      }
+      #fc_frame.border {
+        border: 1px solid #eee;
+        border-radius: 8px 8px 0 0;
       }
       .shadow-box {
         box-shadow: none !important;
@@ -208,7 +209,12 @@
         onInit: function() {
           window.fcWidget.on("widget:loaded", function(resp) {
             console.log('Widget Loaded');
-              window.fcWidget.open({id: 93812});
+            window.fcWidget.open({id: 93812});
+          });
+            
+          window.fcWidget.on("widget:opened", function(resp) {
+            console.log('Widget Opened');
+            document.getElementById('fc_frame').classList.add('border');
           });
         }
       }
