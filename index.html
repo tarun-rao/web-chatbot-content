@@ -199,20 +199,6 @@
         })(document, window, element);
       }
 
-      window.fcSettings = {
-        onInit: function() {
-          window.fcWidget.on("widget:loaded", function(resp) {
-            console.log('Widget Loaded');
-            window.fcWidget.open({id: 93812});
-          });
-            
-          window.fcWidget.on("widget:opened", function(resp) {
-            console.log('Widget Opened');
-            document.getElementById('fc_frame').classList.add('border');
-          });
-        }
-      }
-
       window.fcWidgetMessengerConfig = {
         open: true,
         config: {
@@ -225,5 +211,15 @@
       };
     </script>
     <script src='//in.fw-cdn.com/30573464/315988.js' chat='true'></script>
+    <script>
+      window.fwcrm.on("widget:loaded", function(resp) {
+        console.log('Widget Loaded');
+        window.fcWidget.open({id: 93812});
+      });
+      window.fwcrm.on("widget:opened", function(resp) {
+        console.log('Widget Opened');
+        document.getElementById('fc_frame').classList.add('border');
+      });
+    </script>
   </body>
 </html>
