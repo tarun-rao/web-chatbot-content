@@ -8,18 +8,26 @@
         font-family: "National-Book";
         src: url("./fonts/National-Regular.otf") format("opentype");
       }
+      body {
+        max-width: 950px;
+        max-height: 550px;
+        position: relative;
+        overflow: hidden;
+      }
       .master-container {
         display: flex;
         flex-direction: column;
         width: 100%;
+        height: 550px;
         font-family: National-Book, Helvetica, sans-serif;
-        background-color: rgba(69, 164, 236, 0.1);
+        background-color: #f4fcf8;
         padding-top: 20px;
         box-sizing: border-box;
         align-items: center;
       }
       .bot-space {
         display: flex;
+        flex: 1 0 auto;
         width: 100%;
         max-width: 1000px;
         padding: 0 20px;
@@ -27,21 +35,13 @@
       }
       .button-group {
         display: flex;
-        flex: 1 0 26%;
         flex-direction: column;
         width: 50%;
         padding: 0 20px;
         box-sizing: border-box;
       }
-      .bot-container {
-        display: flex;
-        flex: 1 0 auto;
-        padding: 0 20px;
-        box-sizing: border-box;
-        justify-content: right;
-      }
       .button-wrap {
-        max-width: 400px;
+        max-width: 360px;
       }
       .button {
         width: 100%;
@@ -58,21 +58,31 @@
         border-radius: 4px;
       }
       .button[aria-selected="true"] {
-        background-color: rgba(69, 164, 236, 0.1);
-        border: 1px solid rgb(69, 164, 236);
+        background-color: rgb(202, 240, 220);
+        border: 1px solid rgb(139, 222, 178);
       }
 
-      #bot-iframe {
-        height: 500px;
+      .bot-container {
+        display: flex;
+        flex: 1 0 auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+        justify-content: right;
+        position: relative;
+      }
+      #bot-wrapper {
         width: 100%;
         max-width: 390px;
         border: none;
         font-family: National-Book, Helvetica, sans-serif;
+        position: relative;
       }
-      #bot-iframe.border {
-        border: 1px solid #dedede;
-        border-bottom: none;
-        border-radius: 13px 13px 0 0;
+      #fc_frame {
+        position: absolute!important;
+      }
+      #fc_frame.border {
+        border: 1px solid #eee;
+        border-radius: 8px 8px 0 0;
       }
       .shadow-box {
         box-shadow: none !important;
@@ -87,15 +97,15 @@
           flex-direction: column;
         }
         .bot-container {
-          padding: 0 5px;
+          padding: 0 0 0 10px;
         }
-        #bot-iframe {
-          height: 438px;
+        #bot-wrapper {
+          height: 438px!important;
           margin: 0 auto;
         }
         .button-group {
           width: 100%;
-          flex: 1 0 100%;
+          flex: 0 1 auto;
           flex-direction: row;
           flex-wrap: wrap;
           padding: 0;
@@ -121,165 +131,95 @@
           <div class="button-wrap">
             <button
               class="button selected"
-              id="banking"
-              tabindex="0"
+              id="93812"
               aria-selected="true"
               onclick="loadBot(this)">
-              Banking
+              E-commerce
             </button>
           </div>
           <div class="button-wrap">
             <button
               class="button"
-              id="travel"
-              tabindex="0"
+              id="93719"
               onclick="loadBot(this)">
-              Travel and Hospitality
+              Mutual Funds
             </button>
           </div>
           <div class="button-wrap">
             <button
               class="button"
-              id="ecomm"
-              tabindex="0"
+              id="93813"
               onclick="loadBot(this)">
-              Retail & E-commerce
+              Lending
             </button>
           </div>
           <div class="button-wrap">
             <button
               class="button"
-              id="ecomm"
-              tabindex="0"
+              id="93811"
               onclick="loadBot(this)">
-              Retail & E-commerce
+              Airlines
             </button>
           </div>
           <div class="button-wrap">
             <button
               class="button"
-              id="ecomm"
-              tabindex="0"
+              id="93814"
               onclick="loadBot(this)">
-              Retail & E-commerce
+              Edtech
+            </button>
+          </div>
+          <div class="button-wrap">
+            <button
+              class="button"
+              id="93713"
+              onclick="loadBot(this)">
+              Healthcare
             </button>
           </div>
         </div>
         <div class="bot-container">
-          <iframe id="bot-iframe"></iframe>
+          <div id="bot-wrapper">
+            <div id="fc_frame"></div>
+          </div>
         </div>
       </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-      var botConfig = {
-        banking: {
-          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
-          'data-bot-hash': 'bf4ca3c59e0e76893ed82815ffb1dd5dbc1e218a',
-          'data-init-type': 'opt',
-          'data-self-init': 'false',
-          'data-bot-version': '1',
-          'data-flow-hash': '',
-          'data-region': 'us',
-          'data-env': 'prod'
-        },
-        travel: {
-          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
-          'data-bot-hash': '4c1aeeba9dd595068d1ddf6a84ce538fb8776fec',
-          'data-init-type': 'opt',
-          'data-self-init': 'false',
-          'data-bot-version': '1',
-          'data-flow-hash': '',
-          'data-region': 'us',
-          'data-env': 'prod'
-        },
-        ecomm: {
-          'data-client': '712335a4ce53253fdadab93301d8334ad7710353',
-          'data-bot-hash': 'd054abcf5b7472a4fc2c397abc58ac88a07acdf6',
-          'data-init-type': 'opt',
-          'data-self-init': 'false',
-          'data-bot-version': '1',
-          'data-flow-hash': '',
-          'data-region': 'us',
-          'data-env': 'prod'
-        }
-      };
       function loadBot(element) {
         (function (d, w, el, c) {
           var e = el || document.querySelector('.button[aria-selected="true"]');
-          var frame = document.getElementById("bot-iframe");
-
-          if (frame && frame.contentWindow.Freshbots) {
-            frame.contentWindow.Freshbots.resetCustomer();
-          }
 
           // Change button color
           document.querySelectorAll('.bot-space .button').forEach(function(button) {
             button.ariaSelected = 'false';
           });
           e.ariaSelected = 'true';
-
-          // Removing the existing iframe
-          frame.parentNode.removeChild(frame);
-          frame.classList.remove('border');
-
-          //Creating an new iframe
-          var ifrm = document.createElement("iframe");
-          ifrm.setAttribute("id", "bot-iframe");
-          var botContainer = document.getElementsByClassName("bot-container")[0];
-          botContainer.appendChild(ifrm);
-
-          // Loading the bot in the iframe
-          var loaded = false;
-          var rawframe = d.getElementById("bot-iframe");
-          var framedoc = rawframe.contentDocument;
-          if (!framedoc && rawframe.contentWindow) {
-            framedoc = rawframe.contentWindow.document;
-          }
-          framedoc.body.style = "@font-face {font-family: 'national';src: url('./fonts/National-Regular.otf');}";
-          framedoc.body.style.fontFamily = "national";
-          var s = d.createElement("script");
-          s.id = "spd-busns-spt";
-          s.async = "async";
-          s.src = "https://cdn.freshbots.ai/assets/share/js/freshbots.min.js";
-
-          for(const key in botConfig[e.id]) {
-            s.setAttribute(key, botConfig[e.id][key]);
-          }
-
-          if (c) {
-            s.onreadystatechange = s.onload = function () {
-              if (!loaded) {
-                c();
-              }
-              loaded = true;
-            };
-          }
-
-          framedoc.body.appendChild(s);
-        })(document, window, element, function () {
-          setTimeout(function () {
-            document
-              .getElementById("bot-iframe")
-              .contentWindow
-              .Freshbots
-              .initiateWidget({
-                  autoInitChat: false
-                },
-                function (successResponse) {
-                  document.getElementById("bot-iframe").contentWindow.Freshbots.showWidget(true);
-                  document.getElementById("bot-iframe").classList.add('border');
-                },
-                function (errorResponse) {
-                  console.log("Alas!!");
-                }
-              );
-          }, 0);
-        });
+          window.fcWidget.open({id: Number(e.id)});
+        })(document, window, element);
       }
+
+      window.fcWidgetMessengerConfig = {
+        open: true,
+        config: {
+          headerProperty: {
+            hideHeader: true,
+            hideChatButton: false
+          },
+          fullscreen: true
+        }
+      };
     </script>
+    <script src='//in.fw-cdn.com/30573464/315988.js' chat='true'></script>
     <script>
-      window.onload = loadBot();
+      window.fwcrm.on("widget:loaded", function(resp) {
+        console.log('Widget Loaded');
+        window.fcWidget.open({id: 93812});
+      });
+      window.fwcrm.on("widget:opened", function(resp) {
+        console.log('Widget Opened');
+        document.getElementById('fc_frame').classList.add('border');
+      });
     </script>
   </body>
 </html>
