@@ -97,10 +97,10 @@
           flex-direction: column;
         }
         .bot-container {
-          padding: 0 0 0 10px;
+          padding: 0 10px;
         }
         #bot-wrapper {
-          height: 438px!important;
+          height: 386px!important;
           margin: 0 auto;
         }
         .button-group {
@@ -177,6 +177,14 @@
               Healthcare
             </button>
           </div>
+          <div class="button-wrap">
+            <button
+              class="button"
+              id="240227"
+              onclick="loadBot(this)">
+              Logistics
+            </button>
+          </div>
         </div>
         <div class="bot-container">
           <div id="bot-wrapper">
@@ -213,11 +221,9 @@
     <script src='//in.fw-cdn.com/30573464/315988.js' chat='true'></script>
     <script>
       window.fwcrm.on("widget:loaded", function(resp) {
-        console.log('Widget Loaded');
         window.fcWidget.open({id: 93812});
       });
       window.fwcrm.on("widget:opened", function(resp) {
-        console.log('Widget Opened');
         document.getElementById('fc_frame').classList.add('border');
       });
     </script>
